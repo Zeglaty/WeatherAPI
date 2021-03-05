@@ -14,5 +14,6 @@ struct WeatherData {
     var minTemp = 0
     
     var description = ""
-    var windSpeed = 0
+    var mainDiscreption = ""
+    var windSpeed : Float = 0.0
 }

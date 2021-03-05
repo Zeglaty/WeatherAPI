@@ -24,11 +24,13 @@ class WeatherAPIRequest {
 
     
     func getWeatherData(){
-        let baseWeatherAPIURL = "http://api.openweathermap.org/data/2.5/weather?q=HONG%20KONG&APPID=\(APIKey)&units=metric"
-//        let baseWeatherAPIURL = "http://api.openweathermap.org/data/2.5/weather?APPID=\(APIKey)"//"&q=Tripoli"
+//        let baseWeatherAPIURL = "http://api.openweathermap.org/data/2.5/weather?q=HONG%20KONG&APPID=\(APIKey)&units=metric"
+
+        let baseWeatherAPIURL = "http://api.openweathermap.org/data/2.5/weather?APPID=\(APIKey)&units=metric"
+        
         let params = ["q": "Tripoli"]//parameters: params,
         
-        Alamofire.request(baseWeatherAPIURL , method: .get, encoding: JSONEncoding.default).responseJSON { response in
+        Alamofire.request(baseWeatherAPIURL , method: .get,parameters: params).responseJSON { response in
             
             if response.result.isSuccess {
                     
@@ -38,6 +40,7 @@ class WeatherAPIRequest {
                 
                 
                 let errorMessage = "error while connecting to server"
+                print(response.error?.localizedDescription)
                 self.getWeatherDelegate?.getWeatherResponse(weatherData: nil, errorMessage: errorMessage)
                 
             }
@@ -48,14 +51,21 @@ class WeatherAPIRequest {
     
     private func parseGetWeatherData(statusCode: Int, json: JSON){
         
-        let data = json["data"]
+        
         print(json)
         
         if statusCode < 300 {
             
             var tempWeatherData = WeatherData()
             
+            tempWeatherData.temp = json["main"]["temp"].intValue
+            tempWeatherData.maxTemp = json["main"]["temp_max"].intValue
+            tempWeatherData.minTemp = json["main"]["temp_min"].intValue
             
+            tempWeatherData.description = json["weather"][0]["description"].stringValue
+            tempWeatherData.mainDiscreption = json["weather"][0]["main"].stringValue
+            
+            tempWeatherData.windSpeed = json["wind"]["speed"].floatValue
             
             self.getWeatherDelegate?.getWeatherResponse(weatherData: tempWeatherData, errorMessage: nil)
         }else{

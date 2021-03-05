@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxMinTempLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
     
+    @IBOutlet weak var reloadButton: UIButton!
     
     var networking = WeatherAPIRequest()
     
@@ -37,6 +38,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupViewStyle()
         loadActions(.didLoad)
         // Do any additional setup after loading the view.
     }
@@ -47,7 +49,10 @@ class ViewController: UIViewController {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MARK: - IBActions
         
-        
+    @IBAction func reload(_ sender: Any) {
+        networking.getWeatherData()
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MARK: - Methods
         
@@ -59,7 +64,7 @@ class ViewController: UIViewController {
         
     }
     func setupViewStyle(){
-        
+        reloadButton.layer.cornerRadius = 12
     }
 
 
