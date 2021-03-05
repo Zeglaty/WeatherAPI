@@ -11,7 +11,8 @@ class ViewController: UIViewController {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MARK: - decleration
-        
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
     @IBOutlet weak var tempLabel: UILabel!
     
     @IBOutlet weak var cityNameLabel: UILabel!
@@ -115,11 +116,20 @@ extension ViewController : GetWeatherProtocol{
             windSpeedLabel.text = "\(weatherData!.windSpeed)"
             
             weatherDescreptionLabel.text = weatherData?.description
-            switch weatherData?.description {
-            case "1":
-                _=3
+            switch weatherData?.mainDiscreption {
+            case "Clouds":
+                backgroundImage.image = UIImage(named: "cloud")
+                
+            case "Clear":
+                backgroundImage.image = UIImage(named: "Clear")
+                
+            case "Rain":
+                backgroundImage.image = UIImage(named: "ligthRain")
+                
+            case "Heavy Rain":
+                backgroundImage.image = UIImage(named: "rain")
             default:
-                _=3
+                break
             }
             
         }else{

@@ -142,6 +142,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundImage" destination="3zH-iv-5jz" id="7C1-8s-CiJ"/>
                         <outlet property="cityNameLabel" destination="Wzn-2K-Z5F" id="6CG-kU-0Q6"/>
                         <outlet property="maxMinTempLabel" destination="vjM-0d-KHP" id="xOY-Q2-WLV"/>
                         <outlet property="reloadButton" destination="11c-5e-3VC" id="MqG-TK-Wy9"/>
